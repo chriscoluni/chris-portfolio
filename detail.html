@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Christopher — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wdth,wght@125,600;125,700;125,800;125,900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#f7f4ee',
+          smoke: '#cdcac5',
+          slate: '#c7d0d6',
+          ink: '#2b2925',
+          charcoal: '#26241f',
+        },
+        fontFamily: {
+          display: ['Archivo', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+        boxShadow: {
+          layered: '0 1px 2px rgba(43,41,37,0.06), 0 8px 24px -8px rgba(43,41,37,0.18), 0 24px 48px -24px rgba(43,41,37,0.14)',
+          soft: '0 2px 6px rgba(43,41,37,0.08), 0 12px 32px -12px rgba(43,41,37,0.12)',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; background: #f7f4ee; }
+  .font-display { font-family: 'Archivo', sans-serif; font-stretch: 125%; }
+
+  .btn-outline {
+    transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  .btn-outline:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -6px rgba(43,41,37,0.25); }
+  .btn-outline:active { transform: translateY(0); }
+  .btn-outline:focus-visible { outline: 2px solid #2b2925; outline-offset: 2px; }
+
+  a.footer-link { transition: opacity 0.2s ease; }
+  a.footer-link:hover { opacity: 0.7; }
+  a.footer-link:focus-visible { outline: 2px solid #2b2925; outline-offset: 2px; }
+
+  a.inline-link { color: #2b2925; text-decoration: underline; text-decoration-color: rgba(43,41,37,0.4); transition: text-decoration-color 0.2s ease; }
+  a.inline-link:hover, a.inline-link:focus-visible { text-decoration-color: #2b2925; }
+  a.inline-link:focus-visible { outline: 2px solid #2b2925; outline-offset: 2px; }
+
+  .collage-img { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+  .collage-img:hover { transform: scale(1.03); }
+  @media (prefers-reduced-motion: reduce) { .collage-img { transition: none; } }
+
+  ::selection { background: #2b2925; color: #f7f4ee; }
+</style>
+</head>
+<body class="text-ink antialiased">
+
+<nav class="fixed top-6 left-6 z-50">
+  <a id="back-link" href="index.html" class="btn-outline inline-block bg-white/90 backdrop-blur-md shadow-soft px-5 py-2 text-sm font-medium text-ink/70">← Back</a>
+</nav>
+
+<main class="max-w-3xl mx-auto px-6 pt-32 pb-24">
+  <p id="detail-meta" class="text-ink uppercase text-xs font-semibold tracking-widest mb-4"></p>
+  <h1 id="detail-title" class="font-display font-extrabold tracking-tight text-4xl md:text-6xl mb-4"></h1>
+  <p id="detail-subtitle" class="text-ink/60 text-lg md:text-xl mb-10"></p>
+  <div id="detail-top-action" class="mb-10"></div>
+  <img id="detail-image" src="" alt="" class="w-full shadow-layered mb-10 object-cover aspect-[16/9]" />
+  <div id="detail-body" class="space-y-5 text-ink/70 text-lg leading-[1.7]"></div>
+  <div id="detail-gallery" class="space-y-12"></div>
+  <div id="detail-articles" class="space-y-8"></div>
+  <div id="detail-blocks" class="space-y-10"></div>
+  <div id="detail-links" class="flex gap-3 mt-10"></div>
+</main>
+
+<footer class="relative overflow-hidden bg-charcoal text-cream px-6 md:px-16 py-16">
+  <img src="Backdrop1.JPG" alt="" class="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none select-none" />
+  <div class="relative">
+    <div class="flex flex-col md:flex-row justify-between gap-12">
+      <p class="text-cream/90">© 2026 Christopher</p>
+      <div class="flex gap-16">
+        <div>
+          <h4 class="font-display font-bold mb-4">Elsewhere</h4>
+          <ul class="space-y-3 text-cream/80">
+            <li><a href="https://www.linkedin.com/in/christopher-coluni-05907b2a9/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?user=v1_3AE0AAAAJ&hl=en" target="_blank" rel="noopener" class="footer-link">Google Scholar</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-bold mb-4">Contact</h4>
+          <ul class="space-y-3 text-cream/80">
+            <li><a href="mailto:ccoluni@gmail.com" class="footer-link">Message</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="text-center italic text-sm text-cream/40 mt-12">page last updated July 2026</p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const section = params.get('section');
+  const id = params.get('id');
+  const item = (SITE_DATA[section] || []).find(i => i.id === id);
+
+  document.getElementById('back-link').href = section ? `index.html#${section}` : 'index.html';
+
+  if (item) {
+    document.title = `${item.title} — Christopher`;
+    if (item.meta) {
+      document.getElementById('detail-meta').textContent = item.meta;
+    } else {
+      document.getElementById('detail-meta').remove();
+    }
+    document.getElementById('detail-title').textContent = item.title;
+    if (item.subtitle) {
+      document.getElementById('detail-subtitle').textContent = item.subtitle;
+    } else {
+      document.getElementById('detail-subtitle').remove();
+      document.getElementById('detail-title').classList.replace('mb-4', 'mb-10');
+    }
+    if (item.topAction) {
+      document.getElementById('detail-top-action').innerHTML = `
+        <a href="${item.topAction.url}" target="_blank" rel="noopener" class="btn-outline inline-flex items-center gap-2 bg-ink text-cream px-6 py-3 text-sm font-semibold shadow-soft">
+          ${item.topAction.label}
+        </a>`;
+    } else {
+      document.getElementById('detail-top-action').remove();
+    }
+
+    if (item.gallery && item.gallery.length) {
+      document.getElementById('detail-image').remove();
+      document.getElementById('detail-body').remove();
+      document.getElementById('detail-articles').remove();
+      document.getElementById('detail-blocks').remove();
+      document.getElementById('detail-gallery').innerHTML = item.gallery.map(g => `
+        <figure>
+          <img src="${g.image}" alt="${item.title}" class="w-full aspect-[3/2] object-cover shadow-layered" />
+          <figcaption class="text-ink/70 text-lg leading-[1.7] mt-4">${g.caption}</figcaption>
+        </figure>`
+      ).join('');
+    } else if (item.articles && item.articles.length) {
+      document.getElementById('detail-image').remove();
+      document.getElementById('detail-body').remove();
+      document.getElementById('detail-gallery').remove();
+      document.getElementById('detail-blocks').remove();
+      const coverHTML = item.coverImage ? `
+        <figure class="mb-4">
+          <img src="${item.coverImage}" alt="${item.title}" class="w-full aspect-[3/2] object-cover shadow-layered" />
+          <figcaption class="text-ink/70 text-lg leading-[1.7] mt-4">${item.coverCaption || ''}</figcaption>
+        </figure>` : '';
+      document.getElementById('detail-articles').innerHTML = coverHTML + item.articles.map(a => `
+        <article class="bg-white p-8 md:p-10 shadow-layered">
+          <span class="inline-block text-xs font-semibold tracking-widest uppercase text-ink mb-3">${a.journal}${a.year ? ' · ' + a.year : ''}</span>
+          <h3 class="font-display font-bold text-xl md:text-2xl mb-2">${a.title}</h3>
+          <p class="text-ink/50 text-sm mb-5">${a.authors}</p>
+          <p class="text-ink/70 leading-[1.7] mb-6">${a.abstract}</p>
+          <a href="${a.url}" target="_blank" rel="noopener" class="btn-outline inline-block border border-ink/20 px-5 py-2 text-xs uppercase tracking-wide font-medium">Read Article</a>
+        </article>`
+      ).join('') + (item.scholarUrl ? `
+        <a href="${item.scholarUrl}" target="_blank" rel="noopener" class="btn-outline block bg-charcoal p-8 md:p-10 shadow-layered text-center">
+          <h3 class="font-display font-bold text-xl md:text-2xl text-cream mb-2">View Full Publication List</h3>
+          <p class="text-cream/70">See all of my work on Google Scholar →</p>
+        </a>` : '');
+    } else if (item.blocks && item.blocks.length) {
+      document.getElementById('detail-image').remove();
+      document.getElementById('detail-body').remove();
+      document.getElementById('detail-gallery').remove();
+      document.getElementById('detail-articles').remove();
+      document.querySelector('main').classList.replace('max-w-3xl', 'max-w-5xl');
+      document.getElementById('detail-blocks').innerHTML = item.blocks.map(b => {
+        if (b.type === 'text') {
+          return `<p class="${b.small ? 'text-ink/60 text-base leading-[1.7]' : 'text-ink/70 text-lg leading-[1.7]'}">${b.text}</p>`;
+        }
+        if (b.type === 'heading') {
+          return `<h2 class="font-display font-extrabold tracking-tight text-3xl md:text-4xl${b.divider ? ' border-t border-ink/10 pt-14' : ''}">${b.text}</h2>`;
+        }
+        if (b.type === 'list') {
+          return `
+            <div>
+              ${b.title ? `<h3 class="font-display font-bold text-xl md:text-2xl mb-4">${b.title}</h3>` : ''}
+              <ul class="space-y-3">
+                ${b.items.map(item => `
+                  <li class="flex gap-3 text-ink/70 text-lg leading-[1.7]">
+                    <span class="mt-3 w-1.5 h-1.5 rounded-full bg-ink/40 flex-shrink-0"></span>
+                    <span>${item}</span>
+                  </li>`).join('')}
+              </ul>
+            </div>`;
+        }
+        if (b.type === 'image-pair') {
+          const objPosClass = b.objectPosition ? ` object-${b.objectPosition}` : '';
+          const shapeClass = b.contain ? 'h-auto object-contain' : `aspect-[${b.ratio || '4/3'}] object-cover${objPosClass}`;
+          const bgClass = b.contain ? ' bg-white' : '';
+          return `
+            <figure>
+              <div class="grid grid-cols-2 gap-4">
+                ${b.images.map(src => `<img src="${src}" alt="${item.title}" class="w-full ${shapeClass} shadow-layered${bgClass}" />`).join('')}
+              </div>
+              <figcaption class="text-ink/70 text-lg leading-[1.7] mt-4">${b.caption || ''}</figcaption>
+            </figure>`;
+        }
+        if (b.type === 'image') {
+          const objPosClass = b.objectPosition ? ` object-${b.objectPosition}` : '';
+          const shapeClass = b.ratio ? `aspect-[${b.ratio}] object-cover${objPosClass}` : 'h-auto';
+          const cornerClass = '';
+          const bgClass = b.ratio ? '' : ' bg-white';
+          const wrapClass = b.maxWidth || 'max-w-2xl';
+          return `
+            <figure>
+              <div class="${wrapClass} mx-auto">
+                <img src="${b.image}" alt="${item.title}" class="w-full ${shapeClass} ${cornerClass} shadow-layered${bgClass}" />
+              </div>
+              <figcaption class="text-ink/70 text-lg leading-[1.7] mt-4 text-center">${b.caption || ''}</figcaption>
+            </figure>`;
+        }
+        if (b.type === 'image-row') {
+          const cols = b.cols || 2;
+          const gapVal = b.gap === 0 ? 0 : (b.gap || 6);
+          const gridClass = b.maxWidth
+            ? `flex flex-wrap justify-center items-center gap-${gapVal}`
+            : `grid grid-cols-1 ${cols > 1 ? `md:grid-cols-${cols}` : ''} gap-${gapVal} items-center`;
+          const objPosClass = b.objectPosition ? ` object-${b.objectPosition}` : '';
+          const shapeClass = b.ratio ? `aspect-[${b.ratio}] object-cover${objPosClass}` : 'h-auto';
+          const cornerClass = '';
+          const bgClass = b.ratio ? '' : ' bg-white';
+          const shadowClass = gapVal === 0 ? '' : ' shadow-layered';
+          const sizeClass = b.maxWidth || 'w-full';
+          const imgClass = `${sizeClass} ${shapeClass} ${cornerClass}${shadowClass}${bgClass}`;
+          if (b.captions) {
+            return `
+              <div class="${gridClass}">
+                ${b.images.map((src, i) => `
+                  <figure>
+                    <img src="${src}" alt="${item.title}" class="${imgClass}" />
+                    <figcaption class="text-ink/70 text-base leading-[1.6] mt-3">${b.captions[i] || ''}</figcaption>
+                  </figure>`).join('')}
+              </div>`;
+          }
+          const insetPosClasses = {
+            'bottom-left': 'bottom-3 left-3',
+            'bottom-right': 'bottom-3 right-3',
+            'top-left': 'top-3 left-3',
+            'top-right': 'top-3 right-3',
+            'center': 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+          };
+          const rowInner = `
+            <figure>
+              <div class="${gridClass}">
+                ${b.images.map((src, i) => {
+                  const imgTag = `<img src="${src}" alt="${item.title}" class="${imgClass}" />`;
+                  const inset = b.insets && b.insets[i];
+                  if (!inset) return imgTag;
+                  const posClass = insetPosClasses[inset.position || 'bottom-left'];
+                  const widthClass = inset.width || 'w-[30%]';
+                  return `
+                    <div class="relative">
+                      ${imgTag}
+                      <div class="absolute ${posClass} ${widthClass} shadow-layered ring-2 ring-cream">
+                        <img src="${inset.image}" alt="${item.title} detail" class="w-full h-auto block" />
+                        ${inset.label ? `<div class="bg-cream text-ink/70 text-[10px] md:text-xs text-center leading-tight py-1 px-1">${inset.label}</div>` : ''}
+                      </div>
+                    </div>`;
+                }).join('')}
+              </div>
+              <figcaption class="text-ink/70 text-lg leading-[1.7] mt-4 text-center">${b.caption || ''}</figcaption>
+            </figure>`;
+          if (b.wide) {
+            return `
+              <div class="relative left-1/2 -translate-x-1/2 w-screen">
+                <div class="max-w-6xl mx-auto px-6">${rowInner}</div>
+              </div>`;
+          }
+          return rowInner;
+        }
+        if (b.type === 'table') {
+          return `
+            <div class="bg-white shadow-layered p-6 md:p-8 overflow-x-auto">
+              ${b.title ? `<h4 class="font-display font-bold text-lg md:text-xl mb-5">${b.title}</h4>` : ''}
+              <table class="w-full text-left border-collapse min-w-[420px]">
+                <thead>
+                  <tr class="border-b border-ink/15">
+                    ${b.headers.map(h => `<th class="py-2 pr-4 text-xs uppercase tracking-widest text-ink/50 font-semibold">${h}</th>`).join('')}
+                  </tr>
+                </thead>
+                <tbody>
+                  ${b.rows.map(r => `
+                    <tr class="border-b border-ink/10 last:border-0">
+                      <td class="py-3 pr-4 font-medium">${r[0]}</td>
+                      ${r.slice(1).map(v => `<td class="py-3 pr-4 text-ink/70">${v}</td>`).join('')}
+                    </tr>`).join('')}
+                </tbody>
+              </table>
+            </div>`;
+        }
+        if (b.type === 'collage') {
+          const cols = b.cols || 3;
+          const gapVal = b.gap === 0 ? 0 : (b.gap || 0);
+          const shapeClass = b.ratio ? `aspect-[${b.ratio}] object-cover` : 'h-auto';
+          const grid = `
+            <div class="grid grid-cols-2 md:grid-cols-${cols} gap-${gapVal}">
+              ${b.images.map(src => `
+                <div class="overflow-hidden flex items-center">
+                  <img src="${src}" alt="${item.title}" class="collage-img w-full ${shapeClass} block" />
+                </div>`).join('')}
+            </div>`;
+          if (b.wide) {
+            return `
+              <div class="relative left-1/2 -translate-x-1/2 w-screen">
+                <div class="max-w-6xl mx-auto px-6">${grid}</div>
+              </div>`;
+          }
+          return grid;
+        }
+        if (b.type === 'video') {
+          return `
+            <figure class="max-w-md mx-auto">
+              <video src="${b.src}" controls muted playsinline preload="metadata" class="w-full shadow-layered"></video>
+              <figcaption class="text-ink/70 text-lg leading-[1.7] mt-4 text-center">${b.caption || ''}</figcaption>
+            </figure>`;
+        }
+        return '';
+      }).join('');
+    } else {
+      const img = document.getElementById('detail-image');
+      img.src = item.image;
+      img.alt = item.title;
+      document.getElementById('detail-body').innerHTML = item.body.map(p => `<p>${p}</p>`).join('');
+      document.getElementById('detail-gallery').remove();
+      document.getElementById('detail-articles').remove();
+      document.getElementById('detail-blocks').remove();
+    }
+
+    document.getElementById('detail-links').innerHTML = item.links.map(l =>
+      `<a href="${l.url}" class="btn-outline border border-ink/20 px-5 py-2 text-xs uppercase tracking-wide font-medium">${l.label}</a>`
+    ).join('');
+  } else {
+    document.getElementById('detail-title').textContent = "Not found";
+    document.getElementById('detail-body').innerHTML = '<p>Sorry, we couldn\'t find that one. <a href="index.html" class="underline">Go back home</a>.</p>';
+    document.getElementById('detail-image').remove();
+  }
+</script>
+
+</body>
+</html>
