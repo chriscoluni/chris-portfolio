@@ -5,6 +5,10 @@ const SITE_DATA = {
       title: "Impact Testing: Fixation Devices",
       meta: "Drop-Test Study",
       image: "Project 1/Setup2.jpg",
+      topAction: {
+        label: "View 2026 World Congress of Biomechanics Poster",
+        url: "Project 1/WCB_Poster.pdf"
+      },
       blocks: [
         {
           type: "text",
